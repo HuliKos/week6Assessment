@@ -1,0 +1,13 @@
+TEST CASE #1
+
+Description: The test will verify that robots are populated on page when user clicks the "Draw" button.
+
+Steps:
+1. Go to http://localhost:4000
+2. Click the "Draw" button
+
+Test Postconditions:
+1. At least two robot cards should appear on the page.
+
+Assigned to:
+Chris

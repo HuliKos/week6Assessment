@@ -3,10 +3,23 @@ const path = require('path')
 const app = express()
 const {bots, playerRecord} = require('./data')
 const {shuffleArray} = require('./utils')
+require('dotenv').config()
 
 app.use(express.json())
 
+// include and initialize the rollbar library with your access token
+var Rollbar = require('rollbar')
+var rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
+
+// record a generic message and send it to Rollbar
+rollbar.log('Hello world!')
+
 app.get('/', (req,res) =>{
+    rollbar.info('A user visited your website!')
     res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
@@ -15,6 +28,7 @@ app.get('/styles', (req,res) =>{
 })
 
 app.get('/js', (req,res) =>{
+    rollbar.info('All bots could not be fetched')
     res.sendFile(path.join(__dirname, './public/main.js'))
 })
 
@@ -22,6 +36,7 @@ app.get('/api/robots', (req, res) => {
     try {
         res.status(200).send(botsArr)
     } catch (error) {
+        rollbar.critical('No bot choices loading: app broken!')
         console.log('ERROR GETTING BOTS', error)
         res.sendStatus(400)
     }

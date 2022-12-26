@@ -1,7 +1,7 @@
 TEST PLAN for ROBOT DUELING WEB APP
 
 Overview: Test the functionality of the APP
-Links: http://localhost:3000
+Links: http://localhost:4000
 Test Criteria:
 -->Ensure entire root battle can happen
 -->Page shows dueling instructions on load
